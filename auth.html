@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MindCare – Sign In / Sign Up</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="auth.css" />
+</head>
+<body>
+
+<div class="auth-page">
+
+  <!-- ── Left Decorative Panel ── -->
+  <div class="auth-left">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+
+    <div class="left-content">
+      <div class="brand-logo">
+        <div class="brand-icon">💜</div>
+        <div>
+          <div class="brand-name">MindCare</div>
+          <div class="brand-tagline">Mental Health Support</div>
+        </div>
+      </div>
+
+      <h1 class="left-headline">Your Mental Wellness Journey Starts Here</h1>
+      <p class="left-sub">Connect with licensed therapists, track your progress, and access personalized mental health resources — all in one place.</p>
+
+      <div class="left-features">
+        <div class="feature-item">
+          <div class="feature-icon">🔒</div>
+          <div class="feature-text">
+            <strong>Private & Confidential</strong>
+            <span>End-to-end encrypted sessions & data</span>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🩺</div>
+          <div class="feature-text">
+            <strong>Licensed Professionals</strong>
+            <span>Connect with certified therapists & doctors</span>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">📊</div>
+          <div class="feature-text">
+            <strong>Track Your Progress</strong>
+            <span>Detailed analytics and wellness insights</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Right Form Panel ── -->
+  <div class="auth-right">
+    <div class="auth-form-wrap">
+
+      <!-- Step Progress Dots -->
+      <div class="step-indicator">
+        <div class="step-dot active" id="dot-1"></div>
+        <div class="step-dot" id="dot-2"></div>
+      </div>
+
+      <!-- Sign In / Sign Up Tabs -->
+      <div class="auth-tabs">
+        <div class="auth-tab active" id="tab-signin" onclick="switchMode('signin')">Sign In</div>
+        <div class="auth-tab" id="tab-signup" onclick="switchMode('signup')">Sign Up</div>
+      </div>
+
+      <!-- ══════════════════════════════════════
+           STEP 1: Role Selection
+      ══════════════════════════════════════ -->
+      <div id="step-role" class="role-step">
+        <h2 id="role-heading">Welcome back 👋</h2>
+        <p id="role-subheading">Select your role to continue to your account.</p>
+
+        <div class="role-cards">
+
+          <!-- Admin -->
+          <div class="role-card admin-card" onclick="selectRole('admin')">
+            <div class="role-icon-wrap">🛡️</div>
+            <div class="role-info">
+              <div class="role-name">Administrator</div>
+              <div class="role-desc">Manage users, doctors, and platform settings</div>
+            </div>
+            <div class="role-badge">ADMIN</div>
+            <div class="role-radio"></div>
+          </div>
+
+          <!-- Doctor -->
+          <div class="role-card doctor-card" onclick="selectRole('doctor')">
+            <div class="role-icon-wrap">👨‍⚕️</div>
+            <div class="role-info">
+              <div class="role-name">Doctor / Therapist</div>
+              <div class="role-desc">View patient records, sessions & appointments</div>
+            </div>
+            <div class="role-badge">DOCTOR</div>
+            <div class="role-radio"></div>
+          </div>
+
+          <!-- Patient -->
+          <div class="role-card patient-card" onclick="selectRole('patient')">
+            <div class="role-icon-wrap">🧠</div>
+            <div class="role-info">
+              <div class="role-name">Patient</div>
+              <div class="role-desc">Access therapy sessions, resources & wellness tools</div>
+            </div>
+            <div class="role-badge">PATIENT</div>
+            <div class="role-radio"></div>
+          </div>
+
+        </div>
+
+        <div style="margin-top: 24px;">
+          <button class="btn btn-primary btn-next" id="next-btn" onclick="goToForm()" disabled>
+            Continue
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════
+           STEP 2A: Sign In Form
+      ══════════════════════════════════════ -->
+      <div id="step-signin" class="form-step">
+
+        <button class="back-btn" onclick="goBack()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Back
+        </button>
+
+        <div class="form-heading">
+          <h2>Sign In</h2>
+          <p>Enter your credentials to access your account</p>
+        </div>
+
+        <div class="role-pill" id="signin-role-pill"></div>
+
+        <div class="auth-error" id="signin-error">Invalid email or password. Please try again.</div>
+
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-control" id="signin-email" placeholder="you@example.com" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <div class="pw-wrap">
+            <input type="password" class="form-control" id="signin-password" placeholder="••••••••" />
+            <span class="pw-toggle" onclick="togglePw('signin-password', this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </span>
+          </div>
+        </div>
+
+        <div class="forgot-wrap">
+          <a href="#" class="forgot-link">Forgot password?</a>
+        </div>
+
+        <div class="demo-hint">
+          <p>🔐 <strong>Demo credentials</strong><br />
+          Email: demo@mindcare.com &nbsp;|&nbsp; Password: demo1234</p>
+        </div>
+
+        <div class="demo-actions">
+          <a href="https://mindcare-admin.netlify.app/" class="demo-btn">Admin Login</a>
+          <a href="https://mindcare-doctor.netlify.app/" class="demo-btn">Doctor Login</a>
+          <a href="https://mindcare-patient.netlify.app/" class="demo-btn">Patient Login</a>
+        </div>
+
+        <button class="btn btn-primary" id="signin-btn" onclick="handleSignIn()">Sign In</button>
+
+        <div class="auth-footer">
+          Don't have an account?
+          <span class="auth-link" onclick="switchMode('signup')">Create one free</span>
+        </div>
+
+      </div>
+
+      <!-- ══════════════════════════════════════
+           STEP 2B: Sign Up Form
+      ══════════════════════════════════════ -->
+      <div id="step-signup" class="form-step">
+
+        <button class="back-btn" onclick="goBack()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Back
+        </button>
+
+        <div class="form-heading">
+          <h2>Create Account</h2>
+          <p>Join MindCare and start your wellness journey</p>
+        </div>
+
+        <div class="role-pill" id="signup-role-pill"></div>
+
+        <div class="auth-error" id="signup-error">Please fill all required fields correctly.</div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">First Name</label>
+            <input type="text" class="form-control" placeholder="John" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Last Name</label>
+            <input type="text" class="form-control" placeholder="Doe" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-control" placeholder="you@example.com" />
+        </div>
+
+        <!-- Doctor-specific: Specialization -->
+        <div class="form-group" id="specialty-field" style="display: none;">
+          <label class="form-label">Specialization</label>
+          <select class="form-control">
+            <option value="">Select specialization</option>
+            <option>Psychiatry</option>
+            <option>Psychology</option>
+            <option>Cognitive Behavioral Therapy</option>
+            <option>Counseling</option>
+            <option>Child &amp; Adolescent Therapy</option>
+            <option>Trauma &amp; PTSD</option>
+          </select>
+        </div>
+
+        <!-- Admin-specific: Access Code -->
+        <div class="form-group" id="admin-code-field" style="display: none;">
+          <label class="form-label">Admin Access Code</label>
+          <input type="text" class="form-control" placeholder="Enter admin invitation code" />
+        </div>
+
+        <!-- Patient-specific: Date of Birth -->
+        <div class="form-group" id="dob-field" style="display: none;">
+          <label class="form-label">Date of Birth</label>
+          <input type="date" class="form-control" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <div class="pw-wrap">
+            <input type="password" class="form-control" id="signup-password" placeholder="Min. 8 characters" />
+            <span class="pw-toggle" onclick="togglePw('signup-password', this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Confirm Password</label>
+          <div class="pw-wrap">
+            <input type="password" class="form-control" id="confirm-password" placeholder="Repeat your password" />
+            <span class="pw-toggle" onclick="togglePw('confirm-password', this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </span>
+          </div>
+        </div>
+
+        <div class="terms-check">
+          <label>
+            <input type="checkbox" id="terms-cb" />
+            <span class="terms-text">
+              I agree to the <a href="#" class="terms-link">Terms of Service</a>
+              and <a href="#" class="terms-link">Privacy Policy</a>
+            </span>
+          </label>
+        </div>
+
+        <button class="btn btn-primary" id="signup-btn" onclick="handleSignUp()">Create Account</button>
+
+        <div class="auth-footer">
+          Already have an account?
+          <span class="auth-link" onclick="switchMode('signin')">Sign in here</span>
+        </div>
+
+      </div>
+      <!-- end step-signup -->
+
+    </div><!-- end auth-form-wrap -->
+  </div><!-- end auth-right -->
+
+</div><!-- end auth-page -->
+
+<script>
+  let currentMode = 'signin'; // 'signin' | 'signup'
+  let currentStep = 'role';   // 'role'   | 'form'
+  let selectedRole = null;
+
+  const roleConfig = {
+    admin:   { label: 'Administrator',      emoji: '🛡️',  class: 'admin',   btnClass: 'btn-admin',   redirect: '../Admin/admin.html'  },
+    doctor:  { label: 'Doctor / Therapist', emoji: '👨‍⚕️', class: 'doctor',  btnClass: 'btn-doctor',  redirect: '../Doctor/index.html' },
+    patient: { label: 'Patient',            emoji: '🧠',  class: 'patient', btnClass: 'btn-patient', redirect: 'index.html'           }
+  };
+
+  /* ── Select a Role ─────────────────────────────────────── */
+  function selectRole(role) {
+    selectedRole = role;
+    document.querySelectorAll('.role-card').forEach(c => c.classList.remove('selected'));
+    document.querySelector(`.${role}-card`).classList.add('selected');
+
+    const nextBtn = document.getElementById('next-btn');
+    nextBtn.disabled = false;
+    nextBtn.className = `btn btn-next ${roleConfig[role].btnClass}`;
+    nextBtn.style.color = '#fff';
+  }
+
+  /* ── Proceed to Credential Form ────────────────────────── */
+  function goToForm() {
+    if (!selectedRole) return;
+    currentStep = 'form';
+
+    document.getElementById('dot-1').classList.remove('active');
+    document.getElementById('dot-2').classList.add('active');
+    document.getElementById('step-role').style.display = 'none';
+
+    const role      = roleConfig[selectedRole];
+    const pillHTML  = `${role.emoji} ${role.label}`;
+    const pillClass = `role-pill ${role.class}`;
+
+    if (currentMode === 'signin') {
+      document.getElementById('step-signin').classList.add('active');
+      const pill = document.getElementById('signin-role-pill');
+      pill.className = pillClass;
+      pill.innerHTML = pillHTML;
+      document.getElementById('signin-btn').className = `btn ${role.btnClass}`;
+    } else {
+      document.getElementById('step-signup').classList.add('active');
+      const pill = document.getElementById('signup-role-pill');
+      pill.className = pillClass;
+      pill.innerHTML = pillHTML;
+
+      document.getElementById('specialty-field').style.display  = selectedRole === 'doctor'  ? 'block' : 'none';
+      document.getElementById('admin-code-field').style.display = selectedRole === 'admin'   ? 'block' : 'none';
+      document.getElementById('dob-field').style.display        = selectedRole === 'patient' ? 'block' : 'none';
+
+      document.getElementById('signup-btn').className = `btn ${role.btnClass}`;
+    }
+  }
+
+  /* ── Go Back to Role Selection ─────────────────────────── */
+  function goBack() {
+    currentStep = 'role';
+    document.getElementById('dot-1').classList.add('active');
+    document.getElementById('dot-2').classList.remove('active');
+    document.getElementById('step-role').style.display = 'block';
+    document.getElementById('step-signin').classList.remove('active');
+    document.getElementById('step-signup').classList.remove('active');
+  }
+
+  /* ── Switch Between Sign In / Sign Up ──────────────────── */
+  function switchMode(mode) {
+    currentMode = mode;
+    document.getElementById('tab-signin').classList.toggle('active', mode === 'signin');
+    document.getElementById('tab-signup').classList.toggle('active', mode === 'signup');
+    document.getElementById('role-heading').textContent    = mode === 'signin' ? 'Welcome back 👋' : 'Create an account ✨';
+    document.getElementById('role-subheading').textContent = mode === 'signin'
+      ? 'Select your role to continue to your account.'
+      : 'Select your role to get started with MindCare.';
+    goBack();
+  }
+
+  /* ── Toggle Password Visibility ────────────────────────── */
+  function togglePw(inputId, btn) {
+    const input  = document.getElementById(inputId);
+    const isText = input.type === 'text';
+    input.type   = isText ? 'password' : 'text';
+    btn.innerHTML = isText
+      ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`
+      : `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>`;
+  }
+
+  /* ── Handle Sign In ─────────────────────────────────────── */
+  function handleSignIn() {
+    const email    = document.getElementById('signin-email').value;
+    const password = document.getElementById('signin-password').value;
+    const error    = document.getElementById('signin-error');
+
+    if (!email || !password) {
+      error.classList.add('visible');
+      error.textContent = 'Please enter your email and password.';
+      return;
+    }
+
+    error.classList.remove('visible');
+    const btn = document.getElementById('signin-btn');
+    btn.textContent = 'Signing in…';
+    btn.disabled = true;
+
+    setTimeout(() => {
+      window.location.href = roleConfig[selectedRole].redirect;
+    }, 800);
+  }
+
+  /* ── Handle Sign Up ─────────────────────────────────────── */
+  function handleSignUp() {
+    const error = document.getElementById('signup-error');
+    const terms = document.getElementById('terms-cb');
+
+    if (!terms.checked) {
+      error.classList.add('visible');
+      error.textContent = 'Please agree to the Terms of Service to continue.';
+      return;
+    }
+
+    error.classList.remove('visible');
+    const btn = document.getElementById('signup-btn');
+    btn.textContent = 'Creating account…';
+    btn.disabled = true;
+
+    setTimeout(() => {
+      btn.textContent = '✓ Account Created!';
+      setTimeout(() => {
+        switchMode('signin');
+        btn.textContent = 'Create Account';
+        btn.disabled = false;
+      }, 1200);
+    }, 900);
+  }
+</script>
+</body>
+</html>
